@@ -8,26 +8,29 @@ namespace ConsoleAppTest;
 public class Program100Ti
 {
     //1、两数之和
-    public int[] TwoSum(int[] nums, int target) {
+    public int[] TwoSum(int[] nums, int target)
+    {
         int x;
         Dictionary<int, int> hash = new Dictionary<int, int>();
         for (int i = 0; i < nums.Length; i++)
         {
             x = 0;
             x = target - nums[i];
-            
+
             if (hash.TryGetValue(x, out var value))
             {
-                return new []{value, i};
+                return new[] { value, i };
             }
-            if(hash.ContainsKey(nums[i]))
+
+            if (hash.ContainsKey(nums[i]))
                 continue;
             hash.Add(nums[i], i);
         }
+
         return new int[2];
     }
-    
-    
+
+
     //49、字母异位词分组
     public IList<IList<string>> GroupAnagrams(string[] strs)
     {
@@ -39,12 +42,12 @@ public class Program100Ti
             char[] sChars = str.ToCharArray();
             Array.Sort(sChars);
             string str1 = new string(sChars);
-            
+
             if (!teChars.ContainsKey(str1))
             {
                 Console.WriteLine("in");
-                teChars.Add(str1,i);
-                ans.Add(new List<string>(){str});
+                teChars.Add(str1, i);
+                ans.Add(new List<string>() { str });
                 i++;
             }
             else
@@ -52,11 +55,11 @@ public class Program100Ti
                 ans[teChars[str1]].Add(str);
             }
         }
-        
+
         return ans;
     }
-    
-    
+
+
     //128、最长连续序列
     public int LongestConsecutive(int[] nums)
     {
@@ -78,30 +81,32 @@ public class Program100Ti
             else
             {
                 ans = Math.Max(ans, length);
-                valCheck = num+1;
+                valCheck = num + 1;
                 length = 1;
             }
         }
+
         ans = Math.Max(ans, length);
 
         return ans;
     }
-    
-    
+
+
     //283、移动零
     public void MoveZeroes(int[] nums)
     {
         int nl = nums.Length;
         int left = 0, right = 1;
-        while (left<right)
+        while (left < right)
         {
             if (right == nl)
                 break;
-            
-            if (nums[left]!=0)
+
+            if (nums[left] != 0)
             {
                 left++;
             }
+
             if (nums[left] == 0 && nums[right] != 0)
             {
                 nums[left] = nums[right];
@@ -111,8 +116,8 @@ public class Program100Ti
             right++;
         }
     }
-    
-    
+
+
     //11、盛最多水的容器
     public int MaxArea(int[] height)
     {
@@ -122,7 +127,7 @@ public class Program100Ti
         while (left < right)
         {
             nowArea = Math.Min(height[left], height[right]) * (right - left);
-            if (height[left] <height[right])
+            if (height[left] < height[right])
             {
                 left++;
             }
@@ -136,8 +141,8 @@ public class Program100Ti
 
         return ans;
     }
-    
-    
+
+
     //15、三数之和（双指针）
     public IList<IList<int>> ThreeSum(int[] nums)
     {
@@ -150,6 +155,7 @@ public class Program100Ti
                 ans.Add(nums.ToList());
             return ans;
         }
+
         if (nl < 3)
             return ans;
         if (nums[0] == 0 && nums[^1] == 0)
@@ -157,6 +163,7 @@ public class Program100Ti
             ans.Add(new List<int>() { 0, 0, 0 });
             return ans;
         }
+
         int left = 0, right = 0;
         for (int i = 0; i < nl - 2; i++)
         {
@@ -174,7 +181,7 @@ public class Program100Ti
                     right--;
                 else
                 {
-                    ans.Add(new List<int>(){nums[i],nums[left],nums[right]});
+                    ans.Add(new List<int>() { nums[i], nums[left], nums[right] });
                     left++;
                     right--;
                     while (left < nl - 1 && nums[left] == nums[left - 1]) left++;
@@ -185,8 +192,8 @@ public class Program100Ti
 
         return ans;
     }
-    
-    
+
+
     //42、接雨水（速度很慢，最好双指针）
     public int Trap(int[] height)
     {
@@ -258,8 +265,8 @@ public class Program100Ti
 
         return ans;
     }
-    
-    
+
+
     //3、无重复字符的最长字串
     public int LengthOfLongestSubstring(string s)
     {
@@ -283,10 +290,11 @@ public class Program100Ti
 
             ans = ans < nowLength ? nowLength : ans;
         }
+
         return ans;
     }
-    
-    
+
+
     //438、找到字符串中所有字母异位词
     public IList<int> FindAnagrams(string s, string p)
     {
@@ -297,34 +305,42 @@ public class Program100Ti
         int[] sCount = new int[26];
 
         // 初始化计数数组
-        foreach (char c in p) {
+        foreach (char c in p)
+        {
             pCount[c - 'a']++;
         }
 
         int left = 0, right = 0;
         // 初始化滑动窗口
-        while (right < p.Length) {
+        while (right < p.Length)
+        {
             sCount[s[right] - 'a']++;
             right++;
         }
+
         right--;
 
         // 滑动窗口遍历字符串 s
-        while (right < s.Length) {
-            if (Enumerable.SequenceEqual(pCount, sCount)) {
+        while (right < s.Length)
+        {
+            if (Enumerable.SequenceEqual(pCount, sCount))
+            {
                 ans.Add(left);
             }
+
             right++;
-            if (right != s.Length) {
+            if (right != s.Length)
+            {
                 sCount[s[right] - 'a']++;
             }
+
             sCount[s[left] - 'a']--;
             left++;
         }
 
         return ans;
-        
-        
+
+
         // IList<int> ans = new List<int>();
         // char[] ps = p.ToCharArray();
         // Array.Sort(ps);
@@ -339,10 +355,11 @@ public class Program100Ti
         // }
         // return ans;
     }
-    
-    
+
+
     //560、和为K的子数组
-    public int SubarraySum(int[] nums, int k) {
+    public int SubarraySum(int[] nums, int k)
+    {
         Array.Sort(nums);
         var dict = new Dictionary<int, int> { { 0, 1 } };
         int sum = 0, res = 0;
@@ -353,10 +370,11 @@ public class Program100Ti
             if (dict.ContainsKey(sum)) dict[sum]++;
             else dict.Add(sum, 1);
         }
+
         return res;
     }
-    
-    
+
+
     //239、滑动窗口最大值
     public int[] MaxSlidingWindow(int[] nums, int k)
     {
@@ -365,7 +383,7 @@ public class Program100Ti
 
         int[] ans = new int[nums.Length - k + 1];
         PriorityQueue<int, int> priorityQueue = new PriorityQueue<int, int>();
-        for (int i = 0; i < k-1; i++)
+        for (int i = 0; i < k - 1; i++)
         {
             priorityQueue.Enqueue(i, -nums[i]);
         }
@@ -387,8 +405,8 @@ public class Program100Ti
 
         return ans;
     }
-    
-    
+
+
     //76、最小覆盖子串（鸽了）
     public string MinWindow(string s, string t)
     {
@@ -423,16 +441,18 @@ public class Program100Ti
                             break;
                         }
                     }
+
                     right--;
                 }
             }
-            
+
             left++;
         }
+
         return null;
     }
-    
-    
+
+
     //53、最大子数组和
     public int MaxSubArray(int[] nums)
     {
@@ -442,14 +462,15 @@ public class Program100Ti
         sums[0] = nums[0];
         for (int i = 1; i < nums.Length; i++)
         {
-            sums[i] = Math.Max(sums[i-1] + nums[i], nums[i]);
+            sums[i] = Math.Max(sums[i - 1] + nums[i], nums[i]);
             ans = sums[i] > ans ? sums[i] : ans;
         }
+
         ans = sums[0] > ans ? sums[0] : ans;
         return ans;
     }
-    
-    
+
+
     //56、合并区间
     public int[][] Merge(int[][] intervals)
     {
@@ -465,7 +486,7 @@ public class Program100Ti
             if (intervals[i][1] >= intervals[i + 1][0])
             {
                 intervals[i + 1][0] = intervals[i][0];
-                
+
                 if (intervals[i][1] >= intervals[i + 1][1])
                 {
                     intervals[i + 1][1] = intervals[i][1];
@@ -476,13 +497,13 @@ public class Program100Ti
                 list.Add(intervals[i]);
             }
         }
-        
+
         list.Add(intervals[^1]);
 
         return list.ToArray();
     }
-    
-    
+
+
     //189、轮转数组
     public void Rotate(int[] nums, int k)
     {
@@ -491,28 +512,32 @@ public class Program100Ti
         int[] res = new int[nl];
         Array.Copy(nums, 0, res, k, nl - k);
         Array.Copy(nums, nl - k, res, 0, k);
-        Array.Copy(res,nums,nl);
+        Array.Copy(res, nums, nl);
     }
-    
-    
+
+
     //238、除自身以外数组的乘积
     public int[] ProductExceptSelf(int[] nums)
     {
         int n = nums.Length;
         int pre = 1, suf = 1;
         int[] ans = new int[n];
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
+        {
             ans[i] = pre;
             pre *= nums[i];
         }
-        for (int j = n - 1; j >= 0; j--) {
+
+        for (int j = n - 1; j >= 0; j--)
+        {
             ans[j] *= suf;
             suf *= nums[j];
         }
+
         return ans;
     }
-    
-    
+
+
     //41、缺失的第一个正数
     public int FirstMissingPositive(int[] nums)
     {
@@ -528,8 +553,8 @@ public class Program100Ti
 
         return ans;
     }
-    
-    
+
+
     //73、矩阵置零
     public void SetZeroes(int[][] matrix)
     {
@@ -603,10 +628,87 @@ public class Program100Ti
             }
         }
     }
-    
-    
+
+
     //54、螺旋矩阵
-    public IList<int> SpiralOrder(int[][] matrix) {
-        
+    public IList<int> SpiralOrder(int[][] matrix)
+    {
+        IList<int> ans = new List<int>();
+        int m = matrix.Length, n = matrix[0].Length;
+        int count = m * n;
+        int top = 0, bottom = m - 1, left = 0, right = n - 1;
+        while (count > 0)
+        {
+            for (int col = left; col <= right && count > 0; col++)
+            {
+                ans.Add(matrix[top][col]);
+                count--;
+            }
+
+            top++;
+            for (int row = top; row <= bottom && count > 0; row++)
+            {
+                ans.Add(matrix[row][right]);
+                count--;
+            }
+
+            right--;
+            for (int col = right; col >= left && count > 0; col--)
+            {
+                ans.Add(matrix[bottom][col]);
+                count--;
+            }
+
+            bottom--;
+            for (int row = bottom; row >= top && count > 0; row--)
+            {
+                ans.Add(matrix[row][left]);
+                count--;
+            }
+
+            left++;
+        }
+
+        return ans;
+    }
+
+
+    //48、旋转图像
+    public void Rotate(int[][] matrix)
+    {
+        int nl = matrix.Length;
+        //首先进行上下翻转
+        for (int i = 0; i < nl / 2; i++)
+        {
+            (matrix[i], matrix[nl - i - 1]) = (matrix[nl - i - 1], matrix[i]);
+        }
+
+        //然后进行对角线翻转
+        for (int i = 0; i < nl; i++)
+        {
+            for (int j = i; j < nl; j++)
+            {
+                (matrix[i][j], matrix[j][i]) = (matrix[j][i], matrix[i][j]);
+            }
+        }
+    }
+    
+    
+    //240、搜索二维矩阵2
+    public bool SearchMatrix2(int[][] matrix, int target)
+    {
+        int m = matrix.Length, n = matrix[0].Length;
+        int x = 0, y = n - 1;
+        while (x < m && y >= 0) {
+            if (matrix[x][y] == target) {
+                return true;
+            }
+            if (matrix[x][y] > target) {
+                --y;
+            } else {
+                ++x;
+            }
+        }
+        return false;
     }
 }
