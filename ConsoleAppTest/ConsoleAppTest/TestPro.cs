@@ -11,13 +11,13 @@ public class TestPro
         // int[] nums4 = new[] { 4, 2, 0, 3, 2, 5 };
         // int[] nums = new[] { 9, 6, 8, 8, 5, 6, 3 };
         // int[] nums = new[] { 7, 9, 8, 5, 0, 0, 4, 2, 7, 6, 0, 8, 1, 2, 3 };
-        int[] nums1 = new[] { 2, 0 };
-        int[] nums2 = new[] { 1 };
-
-
-
-        int m = 1;
-        int n = 1;
+        // int[] nums1 = new[] { 2, 0 };
+        // int[] nums2 = new[] { 1 };
+        
+        
+        
+        // int m = 1;
+        // int n = 1;
         // int target = 121;
 
         // string s = "aaabb";
@@ -25,9 +25,10 @@ public class TestPro
         // string s = "abcabcbb";
         // string str1 = "   fly me   to   the moon  ";
         // string p = "bb";
+        string num = "2245047";
 
-        // Daily solution = new Daily();
-        Program180Ti solution = new Program180Ti();
+        Daily solution = new Daily();
+        // Program180Ti solution = new Program180Ti();
         // Solution solution = new Solution();
         // Program100Ti program100Ti = new Program100Ti();
         
@@ -35,7 +36,8 @@ public class TestPro
 
         // solution.Merge(nums1, m, nums2, n);
             
-        // Console.WriteLine(x);
+        Console.WriteLine(solution.MinimumOperations(num));
+        
         // foreach (var VARIABLE in x)
         // {
         //     foreach (var i in VARIABLE)
@@ -44,11 +46,12 @@ public class TestPro
         //         
         //     }
         // }
-        foreach (var i in nums1)
-        {
-            Console.WriteLine(i);
-            
-        }
+        
+        // foreach (var i in nums1)
+        // {
+        //     Console.WriteLine(i);
+        //     
+        // }
         
     }
 }

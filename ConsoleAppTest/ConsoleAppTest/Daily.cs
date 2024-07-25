@@ -511,4 +511,350 @@ public class Daily
         }
         return res;
     }
+    
+    
+    //3112、访问消失节点的最少时间
+    public int[] MinimumTime(int n, int[][] edges, int[] disappear) {
+        List<List<(int u, int v, int w)>> edges2 = [];
+        for (int i = 0; i < n; i++)
+        {
+            edges2.Add([]);
+        }
+        foreach (int[] item in edges)
+        {
+            var (u, v, w) = (item[0], item[1], item[2]);
+            edges2[u].Add((u, v, w));
+            edges2[v].Add((v, u, w));
+        }
+
+        int[] dis = new int[n];
+        Array.Fill(dis, int.MaxValue);
+        dis[0] = 0;
+        PriorityQueue<(int u, int v, int w), int> priorityQueue = new();
+        priorityQueue.Enqueue((0, 0, 0), 0);
+
+        while (priorityQueue.Count > 0)
+        {
+            var (_, x0, len0) = priorityQueue.Dequeue();
+            if (len0 > dis[x0])
+            {
+                continue;
+            }
+            foreach (var (_, x1, len1) in edges2[x0])
+            {
+                if (dis[x0] + len1 < dis[x1] && dis[x0] + len1 < disappear[x1])
+                {
+                    dis[x1] = dis[x0] + len1;
+                    priorityQueue.Enqueue((x0, x1, dis[x1]), dis[x1]);
+                }
+            }
+        }
+
+        for (int i = 0; i < dis.Length; i++)
+        {
+            if (dis[i] == int.MaxValue)
+            {
+                dis[i] = -1;
+            }
+        }
+
+        return dis;
+    }
+    
+    
+    //3096、得到更多分数的最少关卡数目
+    public int MinimumLevels(int[] possible)
+    {
+        int pre=0,nl=possible.Length,tot=possible.Sum();
+        for(int i=0;i<nl-1;++i){
+            pre+=possible[i];
+            if(pre*2-i-1>tot*2-pre*2-nl+i+1) return i+1;
+        }
+        return -1;
+    }
+    
+    
+    //2850、将石头分散到网格图的最少移动次数
+    public int MinimumMoves(int[][] grid)
+    {
+        // List<int[]> dis = new List<int[]>();
+        // List<int[]> zeroPoint = new List<int[]>();
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     for (int j = 0; j < 3; j++)
+        //     {
+        //         if (grid[i][j] == 0)
+        //         {
+        //             zeroPoint.Add([i, j]);
+        //         }
+        //
+        //         if (grid[i][j] > 1)
+        //         {
+        //             dis.Add([grid[i][j] - 1, i, j]);
+        //         }
+        //     }
+        // }
+        //
+        // for (int i = 0; i < dis.Count; i++)
+        // {
+        //     dis[i]
+        // }
+        
+        List<int[]> p1 = new List<int[]>();
+        List<int[]> p2 = new List<int[]>();
+        
+        for (int r = 0; r < 3; r++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                if (grid[r][c] > 1)
+                {
+                    for (int i = 0; i < grid[r][c] - 1; i++)
+                    {
+                        p1.Add([r, c]);
+                    }
+                }
+                if (grid[r][c] == 0)
+                {
+                    p2.Add([r, c]);
+                }
+            }
+        }
+
+        if (p1.Count == 0) return 0;
+
+        return DFS(0, (1 << p1.Count) - 1, p1, p2);
+    }
+    
+    int DFS(int p, int msk, List<int[]> p1, List<int[]> p2)
+    {
+        Dictionary<(int, int), int> cache = new Dictionary<(int, int), int>();
+        if (p == p1.Count) return 0;
+
+        if (cache.ContainsKey((p, msk))) return cache[(p, msk)];
+
+        int ans = 18;
+        for (int j = 0; j < p2.Count; j++)
+        {
+            if ((msk & (1 << j)) != 0)
+            {
+                ans = Math.Min(ans, Math.Abs(p1[p][0] - p2[j][0]) + Math.Abs(p1[p][1] - p2[j][1]) + DFS(p + 1, msk ^ (1 << j), p1, p2));
+            }
+        }
+
+        cache[(p, msk)] = ans;
+        return ans;
+    }
+    
+    
+    //1186、删除一次得到子数组最大和
+    public int MaximumSum(int[] arr) {
+        int dp0 = arr[0], dp1 = 0, res = arr[0];
+        
+        for (int i = 1; i < arr.Length; i++) {
+            dp1 = Math.Max(dp0, dp1 + arr[i]);
+            dp0 = Math.Max(dp0, 0) + arr[i];
+            res = Math.Max(res, Math.Max(dp0, dp1));
+        }
+        
+        return res;
+    }
+    
+    
+    //2101、引爆最多的炸弹
+    public int MaximumDetonation(int[][] bombs) 
+    {
+        int n = bombs.Length;
+        // 维护引爆关系有向图
+        IDictionary<int, IList<int>> edges = new Dictionary<int, IList<int>>();
+        
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (i != j && IsConnected(bombs, i, j)) {
+                    edges.TryAdd(i, new List<int>());
+                    edges[i].Add(j);
+                }
+            }
+        }
+        
+        int res = 0;   // 最多引爆数量
+        
+        for (int i = 0; i < n; ++i) {
+            // 遍历每个炸弹，广度优先搜索计算该炸弹可引爆的数量，并维护最大值
+            bool[] visited = new bool[n];
+            int cnt = 1;
+            Queue<int> queue = new Queue<int>();
+            queue.Enqueue(i);
+            visited[i] = true;
+            while (queue.Count > 0) {
+                int cidx = queue.Dequeue();
+                foreach (int nidx in edges.ContainsKey(cidx) ? edges[cidx] : new List<int>()) {
+                    if (visited[nidx]) {
+                        continue;
+                    }
+                    ++cnt;
+                    queue.Enqueue(nidx);
+                    visited[nidx] = true;
+                }
+            }
+            res = Math.Max(res, cnt);
+        }
+        
+        return res;
+    }
+
+    bool IsConnected(int[][] bombs, int u, int v)
+    {
+        long dx = bombs[u][0] - bombs[v][0];
+        long dy = bombs[u][1] - bombs[v][1];
+        return (long)bombs[u][2] * bombs[u][2] >= dx * dx + dy * dy;
+    }
+    
+    
+    //3098、求出所有子序列的能量和
+    public int SumOfPowers(int[] nums, int k)
+    {
+        int MOD = 1000000007, INF = 0x3f3f3f3f;
+        
+        int n = nums.Length;
+        Array.Sort(nums);
+        ISet<int> set = new HashSet<int>();
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                set.Add(nums[i] - nums[j]);
+            }
+        }
+        set.Add(INF);
+        IList<int> vals = new List<int>(set);
+        ((List<int>) vals).Sort();
+
+        int[][][] d = new int[n][][];
+        
+        for (int i = 0; i < n; i++) {
+            d[i] = new int[k + 1][];
+            for (int j = 0; j <= k; j++) {
+                d[i][j] = new int[vals.Count];
+            }
+        }
+        int[][] border = new int[n][];
+        
+        for (int i = 0; i < n; i++) {
+            border[i] = new int[k + 1];
+        }
+        int[][] sum = new int[k + 1][];
+        
+        for (int i = 0; i <= k; i++) {
+            sum[i] = new int[vals.Count];
+        }
+        int[][] suf = new int[n][];
+        
+        for (int i = 0; i < n; i++) {
+            suf[i] = new int[k + 1];
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                int pos = BinarySearch(vals, nums[i] - nums[j]);
+                
+                for (int p = 1; p <= k; p++) {
+                    while (border[j][p] < pos) {
+                        sum[p][border[j][p]] = (sum[p][border[j][p]] - suf[j][p] + MOD) % MOD;
+                        sum[p][border[j][p]] = (sum[p][border[j][p]] + d[j][p][border[j][p]]) % MOD;
+                        suf[j][p] = (suf[j][p] - d[j][p][border[j][p]] + MOD) % MOD;
+                        border[j][p]++;
+                        sum[p][border[j][p]] = (sum[p][border[j][p]] + suf[j][p]);
+                    }
+                }
+            }
+
+            d[i][1][vals.Count - 1] = 1;
+            
+            for (int p = 2; p <= k; p++) {
+                for (int v = 0; v < vals.Count; v++) {
+                    d[i][p][v] = sum[p - 1][v];
+                }
+            }
+            
+            for (int p = 1; p <= k; p++) {
+                for (int v = 0; v < vals.Count; v++) {
+                    suf[i][p] = (suf[i][p] + d[i][p][v]) % MOD;
+                }
+                sum[p][0] = (sum[p][0] + suf[i][p]) % MOD;
+            }
+        }
+
+        int res = 0;
+        
+        for (int i = 0; i < n; i++) {
+            for (int v = 0; v < vals.Count; v++) {
+                res = (int) ((res + 1L * vals[v] * d[i][k][v] % MOD) % MOD);
+            }
+        }
+        
+        return res;
+    }
+    
+    int BinarySearch(IList<int> vals, int target) {
+        int low = 0, high = vals.Count;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (vals[mid] >= target) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+    
+    
+    //2766、重新放置石块
+    public IList<int> RelocateMarbles(int[] nums, int[] moveFrom, int[] moveTo) {
+        var theSet = nums.ToHashSet();
+        for (int i = 0; i < moveFrom.Length; i++) {
+            theSet.Remove(moveFrom[i]);
+            theSet.Add(moveTo[i]);
+        }
+        return theSet.Select(i => i).Order().ToList();
+    }
+    
+    
+    //2844、生成特殊数字的最少操作
+    public int MinimumOperations(string num)
+    {
+        int nl = num.Length;
+        bool has0 = false, has5 = false;
+
+        for (int i = nl - 1; i >= 0; i--)
+        {
+            if(num[i]=='0'&&!has0)
+            {
+                has0 = true;
+            }
+            else if(num[i]=='0'&&has0)
+            {
+                return nl - i - 2;
+            }
+            else if(num[i]=='5'&&has0)
+            {
+                return nl - i - 2;
+            }
+            else if(num[i]=='5'&&!has0)
+            {
+                has5 = true;
+            }
+            else if(num[i] == '2'&&has5)
+            {
+                return nl - i - 2;
+            }
+            else if(num[i]=='7'&&has5)
+            {
+                return nl - i - 2;
+            }
+        }
+
+        return has0 ? nl - 1 : nl;
+    }
+
 }

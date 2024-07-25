@@ -711,4 +711,159 @@ public class Program100Ti
         }
         return false;
     }
+    
+    
+    //160、相交链表
+    public ListNode GetIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA==null || headB==null) 
+        {
+            return null;
+        }
+        ListNode you = headA, she = headB;
+        while (you != she) 
+        { 
+            you = you != null ? you.next : headB; 
+            she = she != null ? she.next : headA; 
+        }
+        
+        return you;
+    }
+    
+    
+    //206、反转链表
+    public ListNode ReverseList(ListNode head) {
+        if(head == null){
+            return head;
+        }
+        ListNode l1 = null;
+        ListNode l2 = head;
+        while(l2 != null){
+            ListNode l3 = l2.next;
+            l2.next = l1;
+            l1 = l2;
+            l2 = l3; 
+        }
+        return l1;
+    }
+    
+    
+    //234、回文链表
+    public bool IsPalindrome(ListNode head)
+    {
+        ListNode slow = head, fast = head,  prev = null;
+        while (fast != null){//find mid node
+            slow = slow.next;
+            fast = fast.next != null ? fast.next.next: fast.next;
+        }
+        while (slow != null){//reverse
+            ListNode temp = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = temp;
+        }
+        while (head != null && prev != null){//check
+            if (head.val != prev.val){
+                return false;
+            }
+            head = head.next;
+            prev = prev.next;
+        }
+        return true;
+    }
+    
+    
+    //141、环状链表
+    public bool HasCycle(ListNode head) {
+        if (head == null || head.next == null)
+        {
+            return false;
+        }
+        var slow = head;
+        var fast = head.next;
+        
+        while(fast != null)
+        {
+            if(fast.next == null) 
+                return false;
+            if(slow == fast) 
+                return true;
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        
+        return false;
+    }
+    
+    
+    //142、环状链表2
+    public ListNode DetectCycle(ListNode head) {
+        if (head == null || head.next == null)
+        {
+            return null;
+        }
+        var slow = head;
+        var fast = head;
+        
+        while(fast != null)
+        {
+            if(fast.next == null) 
+                return null;
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast)
+            {
+                ListNode x = head, y = slow;
+                while (x!=y)
+                {
+                    x = x.next;
+                    y = y.next;
+                }
+                return x;
+            }
+        }
+        
+        return null;
+    }
+    
+    
+    //21、合并两个有序链表
+    public ListNode MergeTwoLists(ListNode list1, ListNode list2)
+    {
+        if (list1 == null) return list2;
+        if (list2 == null) return list1;
+
+        ListNode answer = new ListNode(0);
+        ListNode ans = answer;
+
+        if (list1.val <= list2.val)
+        {
+            ans.val = list1.val;
+            list1 = list1.next;
+        }
+        else
+        {
+            ans.val = list2.val;
+            list2 = list2.next;
+        }
+
+        while (list1 != null && list2 != null)
+        {
+            if (list1.val <= list2.val)
+            {
+                ans.next = list1;
+                list1 = list1.next;
+            }
+            else
+            {
+                ans.next = list2;
+                list2 = list2.next;
+            }
+
+            ans = ans.next;
+        }
+
+        ans.next = list1 == null ? list2 : list1;
+
+        return answer;
+    }
 }
