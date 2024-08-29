@@ -866,4 +866,132 @@ public class Program100Ti
 
         return answer;
     }
+    
+    
+    //2、两数相加
+    public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+    {
+        ListNode head = null, tail = null;
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int n1 = l1?.val ?? 0;
+            int n2 = l2?.val ?? 0;
+            int sum = n1 + n2 + carry;
+            if (head == null) {
+                head = tail = new ListNode(sum % 10);
+            } else {
+                tail.next = new ListNode(sum % 10);
+                tail = tail.next;
+            }
+            carry = sum / 10;
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+        }
+        if (carry > 0) {
+            tail.next = new ListNode(carry);
+        }
+        return head;
+    }
+    
+    
+    //19、删除链表的倒数第N个节点
+    public ListNode RemoveNthFromEnd(ListNode head, int n)
+    {
+        ListNode fHead = new ListNode(0);
+        fHead.next = head;
+        ListNode fast = fHead;
+        ListNode slow = fHead;
+        
+        for (int i = 0; i <= n; i++)
+        {
+            fast = fast.next;
+        }
+        
+        while (fast != null)
+        {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        
+        slow.next = slow.next.next;
+
+        return fHead.next;
+    }
+    
+    
+    //24、两两交换链表中的节点
+    public ListNode SwapPairs(ListNode head)
+    {
+        ListNode cur = head;
+        ListNode sec = head.next != null ? head.next : null;
+        bool isCh = false;
+        while (cur != null && cur.next != null)
+        {
+            if (!isCh)
+            {
+                isCh = true;
+            }
+            (cur.next, cur.next.next) = (cur.next.next, cur);
+            cur = cur.next;
+        }
+
+        return isCh ? sec : head;
+    }
+    
+    
+    //34、在排序数组中查找元素的第一个和最后一个位置
+    public int[] SearchRange(int[] nums, int target)
+    {
+        int[] arr = [-1, -1];
+        int left = 0, right = nums.Length - 1;
+        bool lad = true, rad = true;
+
+        while (left < right)
+        {
+            if (nums[left] == target)
+            {
+                arr[0] = left;
+                lad = false;
+            }
+
+            if (nums[right] == target)
+            {
+                arr[1] = right;
+                rad = false;
+            }
+
+            if (lad)
+                left++;
+            if (rad)
+                right++;
+            if (!rad && !lad)
+                break;
+        }
+        for (int i = 0; i < nums.Length ; i++)
+        {
+            if (nums[i] == target)
+            {
+                arr[0] = i;
+                break;
+            }
+        }
+
+        if (arr[0] is -1)
+            return arr;
+            
+        for (int j = nums.Length - 1; j >= 0; j--)
+        {
+            if (nums[j] == target)
+            {
+                arr[1] = j;
+                break;
+            }
+        }
+        
+        return arr;
+    }
 }

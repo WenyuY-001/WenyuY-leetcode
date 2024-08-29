@@ -229,6 +229,45 @@ public class Program180Ti
     //122、买卖股票的最佳时机2
     public int MaxProfit2(int[] prices)
     {
-        return 0;
+        if (prices.Length<=1)
+        {
+            return 0;
+        }
+        int ans = 0;
+        for (int i = 1; i < prices.Length; i++)
+        {
+            if (prices[i] > prices[i - 1])
+            {
+                ans += (prices[i] - prices[i - 1]);
+            }
+        }
+
+        return ans;
+    }
+    
+    
+    //55、跳跃游戏
+    public bool CanJump(int[] nums)
+    {
+        int sum = 0;
+        bool ans = true;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (i > sum)
+            {
+                ans = false;
+                break;
+            }
+            sum = Math.Max(sum, i + nums[i]);
+        }
+
+        return ans;
+    }
+    
+    
+    //45、跳跃游戏2
+    public int Jump(int[] nums)
+    {
+        return 1;
     }
 }

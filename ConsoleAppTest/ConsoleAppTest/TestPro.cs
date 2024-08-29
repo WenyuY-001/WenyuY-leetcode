@@ -16,7 +16,7 @@ public class TestPro
         
         
         
-        // int m = 1;
+        // int m = 8;
         // int n = 1;
         // int target = 121;
 
@@ -25,18 +25,21 @@ public class TestPro
         // string s = "abcabcbb";
         // string str1 = "   fly me   to   the moon  ";
         // string p = "bb";
-        string num = "2245047";
+        // string num = "2245047";
 
-        Daily solution = new Daily();
+
+        ListNode node = new ListNode(1, null);
+
+        // Daily solution = new Daily();
         // Program180Ti solution = new Program180Ti();
         // Solution solution = new Solution();
-        // Program100Ti program100Ti = new Program100Ti();
+        Program100Ti solution = new Program100Ti();
         
         // var x = solution.Merge(nums1, m, nums2, n);
 
         // solution.Merge(nums1, m, nums2, n);
             
-        Console.WriteLine(solution.MinimumOperations(num));
+        Console.WriteLine(solution.SwapPairs(node).val);
         
         // foreach (var VARIABLE in x)
         // {
