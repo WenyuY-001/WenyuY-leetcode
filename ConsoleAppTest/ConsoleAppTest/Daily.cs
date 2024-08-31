@@ -1584,8 +1584,8 @@ public class Daily
 
         return dp[m, n];
     }
-    
-    
+
+
     //3148、矩阵中的最大得分
     public int MaxScore(IList<IList<int>> grid)
     {
@@ -1596,14 +1596,13 @@ public class Daily
         {
             for (int j = 0; j < ml; j++)
             {
-                
             }
         }
 
         return ans;
     }
-    
-    
+
+
     //3117、划分数组得到最小的值之和（？？？？）
     public int MinimumValueSum(int[] nums, int[] andValues)
     {
@@ -1647,14 +1646,16 @@ public class Daily
         else
             return -1;
     }
-    
-    
+
+
     //3137、K周期字符串需要的最少操作次数
-    public int MinimumOperationsToMakeKPeriodic(string word, int k) {
+    public int MinimumOperationsToMakeKPeriodic(string word, int k)
+    {
         int n = word.Length, res = int.MaxValue;
         Dictionary<string, int> count = new Dictionary<string, int>();
-        
-        for (int i = 0; i < n; i += k) {
+
+        for (int i = 0; i < n; i += k)
+        {
             string part = word.Substring(i, k);
             count.TryAdd(part, 0);
             count[part]++;
@@ -1663,8 +1664,8 @@ public class Daily
 
         return res;
     }
-    
-    
+
+
     //551、学生出勤记录1
     public bool CheckRecord1(string s)
     {
@@ -1673,7 +1674,7 @@ public class Daily
         {
             if (c == 'A')
                 aCount++;
-            
+
             if (c == 'L')
                 lCount++;
             else
@@ -1688,13 +1689,14 @@ public class Daily
 
         return true;
     }
-    
-    
+
+
     //552、学生出勤记录2
     public int CheckRecord(int n)
     {
         long pa = 0, la = 0, lla = 0, p = 1, l = 0, ll = 0;
-        for (int i = 0; i < n; ++i){
+        for (int i = 0; i < n; ++i)
+        {
             long newPa = (p + l + ll + pa + la + lla) % 1000000007;
             long newLa = pa;
             long newLla = la;
@@ -1703,37 +1705,46 @@ public class Daily
             long newLl = l;
             (pa, la, lla, p, l, ll) = (newPa, newLa, newLla, newP, newL, newLl);
         }
-        
+
         return (int)((pa + la + lla + p + l + ll) % 1000000007);
     }
-    
-    
+
+
     //3154、到达第K级台阶的方案数
     public int WaysToReachStair(int k)
     {
         int n = 0, npow = 1, ans = 0;
-        while (true) {
-            if (npow - n - 1 <= k && k <= npow) {
+        while (true)
+        {
+            if (npow - n - 1 <= k && k <= npow)
+            {
                 ans += Comb(n + 1, npow - k);
-            } else if (npow - n - 1 > k) {
+            }
+            else if (npow - n - 1 > k)
+            {
                 break;
             }
+
             ++n;
             npow *= 2;
         }
+
         return ans;
     }
 
-    int Comb(int n, int k) {
+    int Comb(int n, int k)
+    {
         long ans = 1;
-        for (int i = n; i >= n - k + 1; --i) {
+        for (int i = n; i >= n - k + 1; --i)
+        {
             ans *= i;
             ans /= n - i + 1;
         }
-        return (int) ans;
+
+        return (int)ans;
     }
-    
-    
+
+
     //3007、价值和小于等于K的最大数字
     public long FindMaximumNumber(long k, int x)
     {
@@ -1777,15 +1788,16 @@ public class Daily
             return res;
         }
     }
-    
-    
+
+
     //3133、数组最后一个元素的最小值
     public long MinEnd(int n, int x)
     {
         long end = n - 1;
-        
-        for(int i=0;i<30;++i){
-            if((x & (1<<i)) != 0)
+
+        for (int i = 0; i < 30; ++i)
+        {
+            if ((x & (1 << i)) != 0)
             {
                 end = (end >> i << (i + 1)) | (end & ((1 << i) - 1)) | (1 << i);
             }
@@ -1793,123 +1805,154 @@ public class Daily
 
         return end;
     }
-    
-    
+
+
     //3145、大数组元素的乘积
     public int[] FindProductsOfElements(long[][] queries)
     {
         int[] ans = new int[queries.Length];
-        
-        for (int i = 0; i < queries.Length; i++) {
+
+        for (int i = 0; i < queries.Length; i++)
+        {
             // 偏移让数组下标从1开始
             queries[i][0]++;
             queries[i][1]++;
             long l = MidCheck(queries[i][0]);
             long r = MidCheck(queries[i][1]);
-            int mod = (int) queries[i][2];
+            int mod = (int)queries[i][2];
 
             long res = 1;
             long pre = CountOne(l - 1);
-            for (int j = 0; j < 60; j++) {
-                if ((1L << j & l) != 0) {
+            for (int j = 0; j < 60; j++)
+            {
+                if ((1L << j & l) != 0)
+                {
                     pre++;
-                    if (pre >= queries[i][0] && pre <= queries[i][1]) {
+                    if (pre >= queries[i][0] && pre <= queries[i][1])
+                    {
                         res = res * (1L << j) % mod;
                     }
                 }
             }
 
-            if (r > l) {
+            if (r > l)
+            {
                 long bac = CountOne(r - 1);
-                for (int j = 0; j < 60; j++) {
-                    if ((1L << j & r) != 0) {
+                for (int j = 0; j < 60; j++)
+                {
+                    if ((1L << j & r) != 0)
+                    {
                         bac++;
-                        if (bac >= queries[i][0] && bac <= queries[i][1]) {
+                        if (bac >= queries[i][0] && bac <= queries[i][1])
+                        {
                             res = res * (1L << j) % mod;
                         }
                     }
                 }
             }
 
-            if (r - l > 1) {
+            if (r - l > 1)
+            {
                 long xs = CountPow(r - 1) - CountPow(l);
                 res = res * PowMod(2L, xs, mod) % mod;
             }
-            ans[i] = (int) res;
+
+            ans[i] = (int)res;
         }
-        
+
         return ans;
-        
-        long MidCheck(long x) {
-            long l = 1, r = (long) 1e15;
-            while (l < r) {
+
+        long MidCheck(long x)
+        {
+            long l = 1, r = (long)1e15;
+            while (l < r)
+            {
                 long mid = (l + r) >> 1;
-                if (CountOne(mid) >= x) {
+                if (CountOne(mid) >= x)
+                {
                     r = mid;
-                } else {
+                }
+                else
+                {
                     l = mid + 1;
                 }
             }
+
             return r;
         }
 
         // 计算 <= x 所有数的数位1的和
-        long CountOne(long x) {
+        long CountOne(long x)
+        {
             long res = 0;
             int sum = 0;
 
-            for (int i = 60; i >= 0; i--) {
-                if ((1L << i & x) != 0) {
+            for (int i = 60; i >= 0; i--)
+            {
+                if ((1L << i & x) != 0)
+                {
                     res += 1L * sum * (1L << i);
                     sum += 1;
-                
-                    if (i > 0) {
+
+                    if (i > 0)
+                    {
                         res += 1L * i * (1L << (i - 1));
                     }
                 }
             }
+
             res += sum;
             return res;
         }
 
         // 计算 <= x 所有数的数位对幂的贡献之和
-        long CountPow(long x) {
+        long CountPow(long x)
+        {
             long res = 0;
             int sum = 0;
 
-            for (int i = 60; i >= 0; i--) {
-                if ((1L << i & x) != 0) {
+            for (int i = 60; i >= 0; i--)
+            {
+                if ((1L << i & x) != 0)
+                {
                     res += 1L * sum * (1L << i);
                     sum += i;
-                
-                    if (i > 0) {
+
+                    if (i > 0)
+                    {
                         res += 1L * i * (i - 1) / 2 * (1L << (i - 1));
                     }
                 }
             }
+
             res += sum;
             return res;
         }
 
-        int PowMod(long x, long y, int mod) {
+        int PowMod(long x, long y, int mod)
+        {
             long res = 1;
-            while (y != 0) {
-                if ((y & 1) != 0) {
+            while (y != 0)
+            {
+                if ((y & 1) != 0)
+                {
                     res = res * x % mod;
                 }
+
                 x = x * x % mod;
                 y >>= 1;
             }
-            return (int) res;
+
+            return (int)res;
         }
     }
-    
-    
+
+
     //3146、两个字符串的排列差
     public int FindPermutationDifference(string s, string t)
     {
         int ans = 0;
-        
+
         for (int i = 0; i < s.Length; i++)
         {
             ans += Math.Abs(t.IndexOf(s[i]) - i);
@@ -1917,42 +1960,42 @@ public class Daily
 
         return ans;
     }
-    
-    
+
+
     //698、划分为K个相等的子集
     public bool CanPartitionKSubsets(int[] nums, int k)
     {
         int sum = nums.Sum();
-        
+
         if (sum % k != 0)
             return false;
-        
+
         int per = sum / k;
         Array.Sort(nums);
         int n = nums.Length;
 
         if (nums[n - 1] > per)
             return false;
-        
-        
+
+
         bool[] dp = new bool[1 << n];
         int[] curSum = new int[1 << n];
         dp[0] = true;
-        
-        for (int i = 0; i < 1 << n; i++) 
-        {
-            if (!dp[i]) 
-                continue;
-            
-            for (int j = 0; j < n; j++) {
 
+        for (int i = 0; i < 1 << n; i++)
+        {
+            if (!dp[i])
+                continue;
+
+            for (int j = 0; j < n; j++)
+            {
                 if (curSum[i] + nums[j] > per)
                     break;
-                
-                if (((i >> j) & 1) == 0) 
+
+                if (((i >> j) & 1) == 0)
                 {
                     int next = i | (1 << j);
-                    if (!dp[next]) 
+                    if (!dp[next])
                     {
                         curSum[next] = (curSum[i] + nums[j]) % per;
                         dp[next] = true;
@@ -1960,11 +2003,11 @@ public class Daily
                 }
             }
         }
-        
+
         return dp[(1 << n) - 1];
     }
-    
-    
+
+
     //690、员工的重要性
     public int GetImportance(IList<Employee> employees, int id)
     {
@@ -1973,8 +2016,9 @@ public class Daily
         {
             IDindex.Add(employee.id);
         }
+
         int ans = 0;
-        
+
         AddIm(employees[IDindex.IndexOf(id)]);
 
         return ans;
@@ -1991,89 +2035,106 @@ public class Daily
                 }
             }
         }
-        
     }
-    
-    
+
+
     //3134、找出唯一性数组的中位数
-    public int MedianOfUniquenessArray(int[] nums) {
+    public int MedianOfUniquenessArray(int[] nums)
+    {
         int n = nums.Length;
-        long median = ((long) n * (n + 1) / 2 + 1) / 2;
+        long median = ((long)n * (n + 1) / 2 + 1) / 2;
         int res = 0;
         int lo = 1, hi = n;
-        while (lo <= hi) {
+        while (lo <= hi)
+        {
             int mid = (lo + hi) / 2;
-            if (Check(nums, mid, median)) {
+            if (Check(nums, mid, median))
+            {
                 res = mid;
                 hi = mid - 1;
-            } else {
+            }
+            else
+            {
                 lo = mid + 1;
             }
         }
+
         return res;
-        
-        bool Check(int[] nums, int t, long median) {
+
+        bool Check(int[] nums, int t, long median)
+        {
             Dictionary<int, int> cnt = new Dictionary<int, int>();
             long tot = 0;
-            for (int i = 0, j = 0; i < nums.Length; i++) {
-                if (cnt.ContainsKey(nums[i])) {
+            for (int i = 0, j = 0; i < nums.Length; i++)
+            {
+                if (cnt.ContainsKey(nums[i]))
+                {
                     cnt[nums[i]]++;
-                } else {
+                }
+                else
+                {
                     cnt[nums[i]] = 1;
                 }
-                while (cnt.Count > t) {
+
+                while (cnt.Count > t)
+                {
                     cnt[nums[j]]--;
-                    if (cnt[nums[j]] == 0) {
+                    if (cnt[nums[j]] == 0)
+                    {
                         cnt.Remove(nums[j]);
                     }
+
                     j++;
                 }
+
                 tot += i - j + 1;
             }
+
             return tot >= median;
         }
     }
-    
-    
+
+
     //3144、分割字符频率相等的最少子字符串
-    public int MinimumSubstringsInPartition(string s) {
-        int n=s.Length;
-        int[] dp=new int[n+1];
-        
+    public int MinimumSubstringsInPartition(string s)
+    {
+        int n = s.Length;
+        int[] dp = new int[n + 1];
+
         for (int i = 1; i <= n; ++i)
         {
             dp[i] = dp[i - 1] + 1;
             int max = 1;
-            
+
             IDictionary<char, int> dic = new Dictionary<char, int>();
             dic.Add(s[i - 1], 1);
-            
+
             for (int j = i - 1; j > 0; --j)
             {
                 char c = s[j - 1];
                 dic.TryAdd(c, 0);
                 max = Math.Max(max, ++dic[c]);
-                
-                if (max * dic.Count == i - j + 1) 
+
+                if (max * dic.Count == i - j + 1)
                     dp[i] = Math.Min(dp[i], dp[j - 1] + 1);
             }
-
         }
-        
+
         return dp[n];
     }
-    
-    
+
+
     //3142、判断矩阵是否满足条件
     public bool SatisfiesConditions(int[][] grid)
     {
         int nl = grid[0].Length;
-        
+
         for (int i = 0; i < nl - 1; i++)
         {
             if (grid[0][i] == grid[0][i + 1])
                 return false;
         }
+
         for (int i = 1; i < grid.Length; i++)
         {
             for (int j = 0; j < nl; j++)
@@ -2084,6 +2145,63 @@ public class Daily
         }
 
         return true;
+    }
+
+
+    //3153、所有数对中数位不同之和
+    public long SumDigitDifferences(int[] nums)
+    {
+        long ans = 0;
+        int n = nums.Length;
+        while (nums[0] > 0)
+        {
+            int[] cnt = new int[10];
+            for (int i = 0; i < n; i++)
+            {
+                cnt[nums[i] % 10]++;
+                nums[i] /= 10;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                ans += (long)(n - cnt[i]) * cnt[i];
+            }
+        }
+
+        return ans / 2;
+    }
+    
+    
+    //3127、构造相同颜色的正方形
+    public bool CanMakeSquare(char[][] grid)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                int[] bw = new int[2];
+                if (grid[i][j] == 'B')
+                    bw[0]++;
+                else
+                    bw[1]++;
+                if (grid[i + 1][j] == 'B')
+                    bw[0]++;
+                else
+                    bw[1]++;
+                if (grid[i][j + 1] == 'B')
+                    bw[0]++;
+                else
+                    bw[1]++;
+                if (grid[i + 1][j + 1] == 'B')
+                    bw[0]++;
+                else
+                    bw[1]++;
+                if (bw[0] >= 3 || bw[1] >= 3)
+                    return true;
+            }
+        }
+
+        return false;
     }
 }
 
