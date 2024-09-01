@@ -2203,6 +2203,21 @@ public class Daily
 
         return false;
     }
+    
+    
+    //1450、在既定时间做作业的学生人数
+    public int BusyStudent(int[] startTime, int[] endTime, int queryTime)
+    {
+        int ans = 0;
+        for (int i = 0; i < startTime.Length; i++)
+        {
+            if (startTime[i] <= queryTime)
+                if (endTime[i] >= queryTime)
+                    ans++;
+        }
+
+        return ans;
+    }
 }
 
 //676、实现一个魔法字典
