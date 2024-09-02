@@ -2218,6 +2218,27 @@ public class Daily
 
         return ans;
     }
+    
+    
+    //2024、考试的最大困扰度
+    public int MaxConsecutiveAnswers(string answerKey, int k) {
+        int n = answerKey.Length;
+        int ans = 0, cntT = 0;
+        
+        for(int i = 0, j = 0; j < n; ++j)
+        {
+            cntT += answerKey[j] == 'T' ? 1 : 0;
+            
+            while(i < j && cntT > k && (j - i + 1 - cntT) > k)
+            {
+                cntT -= answerKey[i++] == 'T' ? 1 : 0;
+            }
+            
+            ans = Math.Max(ans, j - i + 1);
+        }
+ 
+        return ans;
+    }
 }
 
 //676、实现一个魔法字典
