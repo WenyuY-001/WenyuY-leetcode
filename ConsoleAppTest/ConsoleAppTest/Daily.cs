@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Marshalling;
 
 namespace ConsoleAppTest;
@@ -2238,6 +2239,146 @@ public class Daily
         }
  
         return ans;
+    }
+    
+    
+    //2708、一个小组的最大实力值
+    public long MaxStrength(int[] nums)
+    {
+        long ans = 1;
+        bool isChange = false;
+        int negcnt = 0;
+        int[] negatives = new int[12];
+        foreach (var i in nums)
+        {
+            if (i < 0)
+            {
+                negatives[negcnt] = i;
+                negcnt++;
+            }
+            else if (i == 0)
+                continue;
+            else
+            {
+                ans *= i;
+                isChange = true;
+            }
+        }
+
+        if (negcnt > 1)
+        {
+            isChange = true;
+            Array.Sort(negatives);
+            negcnt -= negcnt % 2;
+            int cnt = 0;
+            while (cnt < negcnt)
+            {
+                ans *= negatives[cnt];
+                cnt++;
+            }
+        }
+
+        if (!isChange)
+            return nums.Max();
+
+        return ans;
+    }
+    
+    
+    //2860、让所有学生保持开心的分组方法数
+    public int CountWays(IList<int> nums)
+    {
+        int ans = 0;
+        var nl = nums.Count;
+        var cur = nums.ToArray();
+        Array.Sort(cur);
+        int cnt = 0;
+        if (cur[0] > cnt)
+            ans++;
+        
+        for (int i = 0; i < nl; i++)
+        {
+            cnt++;
+            if (i == nl - 1)
+                if (cnt > cur[i])
+                {
+                    ans++;
+                    continue;
+                }
+            
+            if (cur[i] < cnt && cur[i + 1] > cnt)
+                ans++;
+        }
+
+        return ans;
+        
+        /*int count = 0;
+        int n = nums.Count;
+        ((List<int>) nums).Sort();
+        for(int k =0;k<=n;k++){
+            if(k>0&&nums[k-1]>=k){
+                continue;
+            }
+            if(k<n&&nums[k]<=k){
+                continue;
+            }
+            count++;
+        }
+        
+        return count;*/
+    }
+    
+    
+    //3174、清除数字
+    public string ClearDigits(string s)
+    {
+        char[] chars = new char[100];
+        int index = 0;
+        foreach (var c in s)
+        {
+            if (c > 47 && c < 58)
+            {
+                index--;
+                chars[index] = ' ';
+            }
+            else
+            {
+                chars[index] = c;
+                index++;
+            }
+        }
+
+        return new string(chars).Replace("\u0000", "").Trim();
+    }
+    
+    
+    //3176、求出最长好子序列 I
+    public int MaximumLength(int[] nums, int k)
+    {
+        int nl = nums.Length;
+        IDictionary<int, int[]> dp = new Dictionary<int, int[]>();
+        int[] zd = new int[k + 1];
+
+        for (int i = 0; i < nl; i++) {
+            int v = nums[i];
+            dp.TryAdd(v, new int[k + 1]);
+
+            int[] tmp = dp[v];
+            for (int j = 0; j <= k; j++) {
+                tmp[j] += 1;
+                if (j > 0) {
+                    tmp[j] = Math.Max(tmp[j], zd[j - 1] + 1);
+                }
+            }
+            for (int j = 0; j <= k; j++) {
+                zd[j] = Math.Max(zd[j], tmp[j]);
+                if (j > 0) {
+                    zd[j] = Math.Max(zd[j], zd[j - 1]);
+                }
+            }
+        }
+        
+        return zd[k];
     }
 }
 
