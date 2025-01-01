@@ -1,0 +1,15 @@
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\bin\Debug\net7.0\ConsoleAppTestCS.exe
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\bin\Debug\net7.0\ConsoleAppTestCS.deps.json
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\bin\Debug\net7.0\ConsoleAppTestCS.runtimeconfig.json
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\bin\Debug\net7.0\ConsoleAppTestCS.dll
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\bin\Debug\net7.0\ConsoleAppTestCS.pdb
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.GeneratedMSBuildEditorConfig.editorconfig
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.AssemblyInfoInputs.cache
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.AssemblyInfo.cs
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.csproj.CoreCompileInputs.cache
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.sourcelink.json
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.dll
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\refint\ConsoleAppTestCS.dll
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.pdb
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ConsoleAppTestCS.genruntimeconfig.cache
+D:\MY\leetcode\ConsoleAppTest\ConsoleAppTestCS\obj\Debug\net7.0\ref\ConsoleAppTestCS.dll
